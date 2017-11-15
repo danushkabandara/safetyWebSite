@@ -40,7 +40,6 @@ if (Meteor.isClient) {
       return PlaceInfo;
     };
     setPlaceInfo = function (flag) {
-        //console.log(flag);
         $.each(PlaceInfo,function(i,item){
           switch(i){
             case 0:
@@ -107,51 +106,17 @@ if (Meteor.isClient) {
     });
     Meteor.subscribe('safetyevents', {
         onReady: function() {
-            //console.log("demo.js");
-            //console.log(map._layers);
+           
             var data_array = [0, 0, 0];
             Session.set('fromDate', "'"+moment().subtract(6, "months").format("L")+"'");
             Session.set('toDate', "'"+moment().format("L")+"'");
             triggeredEvents= []
             triggeredEventsDep = new Tracker.Dependency();
-            /*SafetyEvents.find({
-                    "Date_Time_Reported": {
-                        $gte: new Date(Session.get('fromDate')),
-                        $lte: new Date(Session.get('toDate'))
-                    }
-                }).forEach(function(obj) {//assuming that safetyevents takes longer to load than markers. When the number of users becomes larger than number of events, this will have to be changed. Currently meteor has no way to trigger event when all data subsciptions are loaded
-            var results = Markers.find({"userid": Meteor.userId()});
-            results.forEach(function(doc) {
-            if (doc.layerType =='circle'){
-                if (getDistanceFromLatLonInKm(obj.Lat,obj.Lon,doc.latlng.lat,doc.latlng.lng) < doc.radius/1000) //check if the point is within each of the markers
-                    triggeredEvents.push(obj);
-            }
-            else
-            {
-                if(isInPolygon(obj.Lat,obj.Lon,doc.latlngs))
-                     triggeredEvents.push(obj);
-            }
-          })
-        })*/
-        dataLoading = false; //to prevent tracker.autorun being called when data is loading to client collection
+            dataLoading = false; //to prevent tracker.autorun being called when data is loading to client collection
         }
     });
 
-  /*  Handlebars.registerHelper('getRowClass', function(Severity) {
-    switch (Severity) {
-        case 0 : {
-            return 'active';
-        }
-        break;
-        case 1 : {
-            return 'warning';
-        }
-        break;
-        default : {
-            return 'danger';
-        }
-    }});*/
-
+  
 
    $(function() {
         $(document).ready(function() {
@@ -216,7 +181,7 @@ Template.eventtable.events({
         }
     for(i=0;i<eventMarker.length;i++)
             map.removeLayer(eventMarker[i]);
-    eventMarker[0] =  L.marker([this.Lat, this.Lon], {icon: highIcon})
+    eventMarker[0] =  L.marker([this.Lat, this.Lon], {icon: highIcon})//add popup showing crime classification and location detail
                       .addTo(map)
                       .bindPopup("<b>Type:</b> "+this.Nature_Classification+"<br>"+"<b>Location:</b>"+this.General_Location+"<br>")
                       .openPopup();

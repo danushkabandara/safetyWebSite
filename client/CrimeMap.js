@@ -207,7 +207,7 @@ Template.eventtable.events({
   }
 
 });
-/*
+/* show marker on map when mouseover the particular table row
 Template.eventRow.events({
   'click': function(e) {
     if (typeof eventMarker == 'undefined') {
@@ -284,7 +284,7 @@ Template.form.events({ //filter map data on form submit
        renderEventsOnMap();
       }
     },
-     /*"change #isCity": function(evt) {
+     "change #isCity": function(evt) {
       var newValue = $(evt.target).val();
       var oldValue = Session.get("isCity");
       if (newValue != oldValue) {
@@ -294,7 +294,7 @@ Template.form.events({ //filter map data on form submit
        //console.log(newValue);
        setPlaceInfo(newValue);
       }
-    },*/
+    },
     "change #severity": function(evt) {
          var newValue = $(evt.target).val();
          var oldValue = Session.get("severity");
